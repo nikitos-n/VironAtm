@@ -27,8 +27,8 @@ EventEmmiter.prototype.emit = function(eventName,params){//Реализуем г
 }
     
 let ev1=new EventEmmiter();
-let f = ev1.on("hello",()=>document.write("Hello<br />"));
-ev1.on("hello",(a,b)=>document.write(a+b+"<br />"));
+let f = ev1.on("hello",()=>console.log("Hello"));
+ev1.on("hello",(a,b)=>console.log(a+b));
 ev1.emit("hello",1,2);
 f();
 ev1.emit("hello",2,4);

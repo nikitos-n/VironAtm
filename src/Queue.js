@@ -13,4 +13,4 @@ Queue.prototype.changeAmount=function(){
     console.log(`Количество людей в очереди ${this.queueAmount}`);
 }
 
-module.exports=Queue;
+module.exports=new Queue();

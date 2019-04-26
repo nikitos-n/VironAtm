@@ -14,16 +14,16 @@ function Atm(startTime,endTime){
 }
 
 Atm.prototype.checkAndChangeState=function(generateInterval,i){
-    if(this.state==true){
         setTimeout(()=>{
             this.state=false;//Через секунду к нему подошел следующий из очеререди и он стал занят
-            console.log("Банкомат занят");
+            console.log(`${i}-ый банкомат занят`);
             setTimeout(()=>{
                 this.state=true;//Обслужили текущего
+                this.servedPeople+=1;
+                console.log(`${i}-ый банкомат обслужил ${this.servedPeople} людей`);
                 console.log(`${i}-ый банкомат свободен`);
             },generateInterval(this.startTime,this.endTime))
         },1000);
-    }
 }
 
 module.exports=Atm;

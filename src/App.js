@@ -10,7 +10,7 @@ App.prototype.addAmt=function(AtmExemplar){
     this.AtmArray.push(AtmExemplar);
 }
 
-App.startProcess.prototype=function(n,m){//Запуск процесса
+App.prototype.startProcess=function(n,m){//Запуск процесса
     let queue_1=createGeneratorQueue(n,m);//Создаем очередь
     for(let i in this.AtmArray){
         this.AtmArray[i].on("CheckAndChangeState",()=>{
@@ -18,10 +18,13 @@ App.startProcess.prototype=function(n,m){//Запуск процесса
                 queue_1.queueAmount-=1;//Уменьшаем очередь без учета прироста
         })
     }
+    while(queue_1.queueAmount>0){
+        this.SearchFreeAtm().emit("CheckAndChangeState");//Первый свободный автомат начинате работу
+    }
 }
 
-App.SearchFreeAtm.prototype=function(){
-    
+App.prototype.SearchFreeAtm=function(){
+    this.AtmArray.find(currentAtm=>currentAtm.state===true);
 }
 
 function createInterval(min,max){//Случайное число на заданном интервале
@@ -47,5 +50,9 @@ function createGeneratorQueue(n,m){//Генерируем очередь
 
 let f=createGeneratorQueue(10,0.05);
 
-exports.createGeneratorQueue=createInterval;
-module.exports=createGeneratorQueue;
+let atm1=new Atm(5,10);
+let atm2=new Atm(5,8);
+let app1=new App();
+app1.addAmt(atm1);
+app1.addAmt(atm2);
+app1.startProcess(3,7);

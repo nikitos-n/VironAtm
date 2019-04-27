@@ -21,7 +21,7 @@ EventEmmiter.prototype.emit = function(eventName,...params){//Реализуем
         this.eventTable[eventName].forEach(function(elem){elem(...params)})
     }
     else{
-    	document.write(`Нет подписки на событие ${eventName}`);
+    	console.log(`Нет подписки на событие ${eventName}`);
     }
 }
 module.exports=EventEmmiter;

@@ -11,24 +11,16 @@ App.prototype.addAmt = function (AtmExemplar) {
 }
 
 App.prototype.startProcess = function (n, m) {//Запуск процесса
-    queue_1.queueAmount=8;
+    createGeneratorQueue(n,m);
     for (let i in this.AtmArray) {
         this.AtmArray[i].on("ChangeState", () => {
-            this.AtmArray[i].сhangeState(3,createInterval,i);
+            this.AtmArray[i].сhangeState(queue_1,createInterval,i);
         })
     }
     this.AtmArray[0].emit("ChangeState");
     this.AtmArray[1].emit("ChangeState");
 }
 
-
-// App.prototype.SearchFreeAtm = function () {//Поиск первого свободного
-//     return this.AtmArray.find(currentAtm => currentAtm.state === true);
-// }
-
-// App.prototype.SearchNotServed = function(){//Проверяем обслужили ли кого то(начался ли процесс)
-//     return this.AtmArray.every(currentAtm => currentAtm.servedPeople===0);
-// }
 
 function createInterval(min, max) {//Случайное число на заданном интервале
     let rand = (min + Math.random() * (max + 1 - min));
@@ -54,4 +46,4 @@ let atm2=new Atm(5,8);
 let app1=new App();
 app1.addAmt(atm1);
 app1.addAmt(atm2);
-app1.startProcess(3, 7);
+app1.startProcess(1, 2);

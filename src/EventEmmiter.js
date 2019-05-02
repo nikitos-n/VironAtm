@@ -20,8 +20,5 @@ EventEmmiter.prototype.emit = function(eventName,...params){//Реализуем
     if(this.eventTable.hasOwnProperty(eventName)){//Если на это событие ранее подписывались
         this.eventTable[eventName].forEach(function(elem){elem(...params)})
     }
-    else{
-    	console.log(`Нет подписки на событие ${eventName}`);
-    }
 }
 module.exports=EventEmmiter;

@@ -1,49 +1,75 @@
 "use strict"
-const queue_1 = require("./Queue");
 const Atm = require("./Atm");
+const Queue = require("./Queue");
 
-function App() {//Менеджер 
-    this.AtmArray = [];
-}
-
-App.prototype.addAmt = function (AtmExemplar) {
-    this.AtmArray.push(AtmExemplar);
-}
-
-App.prototype.startProcess = function (n, m) {//Запуск процесса
-    createGeneratorQueue(n,m);
-    for (let i in this.AtmArray) {
-        this.AtmArray[i].on("ChangeState", () => {
-            this.AtmArray[i].сhangeState(queue_1,createInterval,i);
-        })
+//#region Запускаем банкоматы и очередь
+class App {
+    constructor() {
+        this.AtmArray = [];
     }
-    this.AtmArray[0].emit("ChangeState");
-    this.AtmArray[1].emit("ChangeState");
+
+    addAtm(AtmExemplar) {
+        this.AtmArray.push(AtmExemplar);
+    }
+
+    startProcess(n, m) {
+        let queue_1 = createGeneratorQueue(n, m);
+        for (let i in this.AtmArray) {
+            this.AtmArray[i].on("changeState", () => { console.log(`${i}-ый банкомат находится в состоянии ${this.AtmArray[i].state}`) })
+            this.AtmArray[i].on("changeServedAmount", () => { console.log(`Количество людей, обслуженных ${i}-ым банкоматом ${this.AtmArray[i].servedPeople}`) })
+        }
+        for (let i in this.AtmArray) {
+            realizeAtm(this.AtmArray[i], queue_1, i);
+        }
+    }
 }
+// #endregion
 
+// #region handler на изменение состояния очереди
+function realizeAtm(AtmExemplar, QueueExemplar, i) {
+    setTimeout(() => {
+        AtmExemplar.changeState();
+        AtmExemplar.changeServedAmount();
+        setTimeout(() => {
+            if (QueueExemplar.queueAmount > 0) {//Если очередь не закончилась
+                AtmExemplar.changeState();//Через секунду к нему подошел следующий из очеререди и он стал занят
+                QueueExemplar.DecreaseAmount();
+            }
+            realizeAtm(AtmExemplar, QueueExemplar, i);
+        }, 1000);
+    }, createInterval(AtmExemplar.startTime, AtmExemplar.endTime));
+};
+// #endregion
 
-function createInterval(min, max) {//Случайное число на заданном интервале
+//#region Случайное число на заданном интервале
+function createInterval(min, max) {
     let rand = (min + Math.random() * (max + 1 - min));
     rand = Math.floor(rand) * Math.pow(10, 3);
     return rand;
 }
+//#endregion
 
-function increaseQueue(n, m) {//Наращиваем очередь
-    setTimeout(() => {
-        queue_1.emit("queueChangeAmount");
-        increaseQueue(n, m);
-    },
-        createInterval(n, m))
-}
-
+//#region Генерация очереди
 function createGeneratorQueue(n, m) {//Генерируем очередь
-    queue_1.on("queueChangeAmount", () => { queue_1.changeAmount(); });//Подписка на изменение очереди
+    let queue_1 = new Queue();
+    queue_1.on("ChangeAmount", () => { console.log(`Количество людей в первой очереди очереди ${queue_1.queueAmount}`); });
+    function increaseQueue(n, m) {//Наращиваем очередь
+        setTimeout(() => {
+            queue_1.IncreaseAmount();
+            increaseQueue(n, m);
+        },
+            createInterval(n, m))
+    }
     increaseQueue(n, m);
+
+    return queue_1;
 }
-// createGeneratorQueue(2,3);
-let atm1=new Atm(4,5);
-let atm2=new Atm(5,8);
-let app1=new App();
-app1.addAmt(atm1);
-app1.addAmt(atm2);
-app1.startProcess(1, 2);
+//#endregion
+
+let atm1 = new Atm(4, 5);
+let atm2 = new Atm(5, 8);
+let app1 = new App();
+app1.addAtm(atm1);
+app1.addAtm(atm2);
+console.log(app1.AtmArray.length);
+app1.startProcess(1, 3);

@@ -1,8 +1,8 @@
 "use strict"
 
-const EventEmmiter=require("./EventEmmiter");
+import EventEmmiter from './EventEmmiter'
 
-class Queue extends EventEmmiter{
+export default class Queue extends EventEmmiter{
     constructor(){
         super();
         this.queueAmount=0;//Изначально ни кого в очереди нет
@@ -18,5 +18,3 @@ class Queue extends EventEmmiter{
         this.emit("ChangeAmount");
     }
 }
-
-module.exports=Queue;

@@ -21,4 +21,4 @@ EventEmmiter.prototype.emit = function(eventName,...params){//Реализуем
         this.eventTable[eventName].forEach(function(elem){elem(...params)})
     }
 }
-module.exports=EventEmmiter;
+export default EventEmmiter

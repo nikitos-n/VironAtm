@@ -1,8 +1,11 @@
-// "use strict"
-// const App=require("./App");
-// const Atm = require("./Atm");
+"use strict"
 
-// let firstAtm=new Atm(3000,4000);
-// let secondAtm=new Atm(5000,14000);
-// let mas=[firstAtm,secondAtm];
-// App(mas,10000,500);
+import Atm from './Atm';
+import App from './App';
+
+let atm1 = new Atm(4, 5);
+let atm2 = new Atm(5, 8);
+let app1 = new App();
+app1.addAtm(atm1);
+app1.addAtm(atm2);
+app1.startProcess(1, 3);

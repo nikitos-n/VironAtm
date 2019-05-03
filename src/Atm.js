@@ -1,8 +1,8 @@
 "use strict"
 
-const EventEmmiter = require("./EventEmmiter");
+import EventEmmiter from './EventEmmiter'
 
-class Atm extends EventEmmiter{
+export default class Atm extends EventEmmiter{
     constructor(startTime, endTime){
         super();
         this.startTime = startTime;
@@ -21,5 +21,3 @@ class Atm extends EventEmmiter{
         this.servedPeople+=1;
     }
 }
-
-module.exports = Atm;

@@ -1,9 +1,9 @@
 "use strict"
-const Atm = require("./Atm");
-const Queue = require("./Queue");
 
+import Atm from './Atm';
+import Queue from './Queue';
 //#region Запускаем банкоматы и очередь
-class App {
+export default class App {
     constructor() {
         this.AtmArray = [];
     }
@@ -65,11 +65,3 @@ function createGeneratorQueue(n, m) {//Генерируем очередь
     return queue_1;
 }
 //#endregion
-
-let atm1 = new Atm(4, 5);
-let atm2 = new Atm(5, 8);
-let app1 = new App();
-app1.addAtm(atm1);
-app1.addAtm(atm2);
-console.log(app1.AtmArray.length);
-app1.startProcess(1, 3);

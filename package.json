@@ -1,25 +1,25 @@
 {
-  "name": "eventemmiter",
+  "name": "taskwithwebpack",
   "version": "1.0.0",
-  "description": "",
+  "description": "WebpackForUI",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --inline --hot",
-    "build": "webpack"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author":"",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nikita27142914/ViroIT.git"
+  },
+  "author": "Nikita27142914",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
-    "babel-loader": "^8.0.5",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.2",
-    "webpack": "^4.30.0",
-    "@webpack/cli": "^3.3.1",
-    "webpack-dev-server": "^3.3.1"
+  "bugs": {
+    "url": "https://github.com/Nikita27142914/ViroIT/issues"
   },
-  "dependencies": {}
+  "homepage": "https://github.com/Nikita27142914/ViroIT#readme",
+  "devDependencies": {
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1"
+  }
 }

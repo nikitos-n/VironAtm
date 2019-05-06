@@ -31,7 +31,7 @@ export default class App {
     startProcess(n, m) {
 
         for (let i in this.QueueArray) {
-            this.QueueArray[i] = createGeneratorQueue(this.QueueArray[i], this.QueueArrayUI[i], n, m);
+            this.QueueArray[i] = createGeneratorQueue(this.QueueArray[i], this.QueueArrayUI[i], n, m, i);
         }
 
         for (let i in this.AtmArray) {
@@ -50,19 +50,26 @@ export default class App {
 
 // #region handler на изменение состояния очереди
 function realizeAtm(AtmExemplar, QueueArray, i) {
+    debugger;
     setTimeout(() => {
         AtmExemplar.changeState();
         AtmExemplar.changeServedAmount();
         setTimeout(() => {
+            debugger;
             if (QueueArray.some((element) => element.queueAmount > 0)) {//Если очередь не закончилась
                 AtmExemplar.changeState();//Через секунду к нему подошел следующий из очеререди и он стал занят
-                QueueArray[0].DecreaseAmount();
+                QueueArray.sort((a, b) => {
+                    if (a.queueAmount > b.queueAmount) return 1;
+                    if (a.queueAmount < b.queueAmount) return -1;
+                });
+                QueueArray[QueueArray.length-1].DecreaseAmount();
             }
             realizeAtm(AtmExemplar, QueueArray, i);
         }, 1000);
     }, createInterval(AtmExemplar.startTime, AtmExemplar.endTime));
 };
 // #endregion
+
 
 //#region Случайное число на заданном интервале
 function createInterval(min, max) {
@@ -73,10 +80,10 @@ function createInterval(min, max) {
 //#endregion
 
 //#region Генерация очереди
-function createGeneratorQueue(queue_1, queue_1UI, n, m) {//Генерируем очередь
+function createGeneratorQueue(queue_1, queue_1UI, n, m, i) {//Генерируем очередь
     queue_1.on("ChangeAmount", () => {
         queue_1UI.ChildQueueDiv.innerText = queue_1.queueAmount;
-        console.log(`Количество людей в первой очереди очереди ${queue_1.queueAmount}`);
+        console.log(`Количество людей в ${i}-ой очереди очереди ${queue_1.queueAmount}`);
     });
     function increaseQueue(n, m) {//Наращиваем очередь
         setTimeout(() => {

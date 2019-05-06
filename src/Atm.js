@@ -2,8 +2,8 @@
 
 import EventEmmiter from './EventEmmiter'
 
-export default class Atm extends EventEmmiter{
-    constructor(startTime, endTime){
+export default class Atm extends EventEmmiter {
+    constructor(startTime, endTime) {
         super();
         this.startTime = startTime;
         this.endTime = endTime;
@@ -11,13 +11,18 @@ export default class Atm extends EventEmmiter{
         this.servedPeople = 0;
     }
 
-    changeState(){
+    changeState() {
         this.emit("changeState");
-        this.state=this.state?false:true;
+        if(this.state==true){
+            this.state=false;
+        }
+        else if(this.state==false){
+            this.state=true;
+        }
     }
 
-    changeServedAmount(){
+    changeServedAmount() {
         this.emit("changeServedAmount");
-        this.servedPeople+=1;
+        this.servedPeople += 1;
     }
 }

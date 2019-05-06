@@ -1,27 +1,17 @@
 {
-  "name": "taskwithwebpack",
+  "name": "TaskWithWebPack",
   "version": "1.0.0",
-  "description": "WebpackForUI",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot",
-    "build": "webpack --mode production",
+    "build": "webpack",
+    "start": "webpack-dev-server --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Nikita27142914/ViroIT.git"
-  },
-  "author": "Nikita27142914",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Nikita27142914/ViroIT/issues"
-  },
-  "homepage": "https://github.com/Nikita27142914/ViroIT#readme",
   "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "babel-loader": "^8.0.5",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1"

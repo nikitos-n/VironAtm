@@ -1,0 +1,54 @@
+body{
+    background-color: paleturquoise;
+}
+
+.atmUIFlex-container{
+    display: flex;
+    border: 2px dashed steelblue; 
+    border-radius: 50px;
+    width: 85%;
+    color: black;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 5px;
+    background-color: mediumblue;
+    flex-wrap: wrap;
+}
+
+.atmUIFlex-elements{
+    padding-left: 10px;
+    padding-top: 20px;
+    margin: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: aquamarine;
+    height: 100px;
+    float: left;
+    flex-grow: 1;
+}
+
+.queueUIFlex-container{
+    display: flex;
+    border: 4px dashed steelblue; 
+    border-radius: 50px;
+    width: 85%;
+    color: black;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+    background-color: yellow;
+    flex-wrap: wrap;
+}
+
+.queueUIFlex-elements{
+    padding-left: 10px;
+    padding-top: 20px;
+    margin: 20px;
+    border: 2px solid black;
+    text-align: center;
+    border-radius: 20px;
+    background-color: greenyellow;
+    height: 40px;
+    float: left;
+    flex-grow: 1;
+}

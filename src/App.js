@@ -36,10 +36,13 @@ export default class App {
 
         for (let i in this.AtmArray) {
             this.AtmArray[i].on("changeState", () => {
-                this.AtmArrayUI[i].ChildAtmDiv.style.backgroundColor = this.AtmArrayUI[i].ChildAtmDiv.style.backgroundColor == "aquamarine" ? "red" : "aquamarine";
+                this.AtmArrayUI[i].ChildAtmDiv.style.backgroundColor = this.AtmArrayUI[i].ChildAtmDiv.style.backgroundColor == "red" ? "aquamarine" : "red";
                 console.log(`${i}-ый банкомат находится в состоянии ${this.AtmArray[i].state}`)
             })
-            this.AtmArray[i].on("changeServedAmount", () => { console.log(`Количество людей, обслуженных ${i}-ым банкоматом ${this.AtmArray[i].servedPeople}`) })
+            this.AtmArray[i].on("changeServedAmount", () => {
+                this.AtmArrayUI[i].changeServedPeopleUI(this.AtmArray[i].servedPeople);
+                console.log(`Количество людей, обслуженных ${i}-ым банкоматом ${this.AtmArray[i].servedPeople}`)
+            })
         }
         for (let i in this.AtmArray) {
             realizeAtm(this.AtmArray[i], this.QueueArray, i);
@@ -50,23 +53,24 @@ export default class App {
 
 // #region handler на изменение состояния очереди
 function realizeAtm(AtmExemplar, QueueArray, i) {
-    debugger;
     setTimeout(() => {
-        AtmExemplar.changeState();
-        AtmExemplar.changeServedAmount();
-        setTimeout(() => {
-            debugger;
-            if (QueueArray.some((element) => element.queueAmount > 0)) {//Если очередь не закончилась
-                AtmExemplar.changeState();//Через секунду к нему подошел следующий из очеререди и он стал занят
-                QueueArray.sort((a, b) => {
-                    if (a.queueAmount > b.queueAmount) return 1;
-                    if (a.queueAmount < b.queueAmount) return -1;
-                });
-                QueueArray[QueueArray.length-1].DecreaseAmount();
-            }
+        if (QueueArray.some((element) => element.queueAmount > 0)) {//Если очередь не закончилась
+            AtmExemplar.changeState();
+            QueueArray.sort((a, b) => {
+                if (a.queueAmount > b.queueAmount) return 1;
+                if (a.queueAmount < b.queueAmount) return -1;
+            });
+            QueueArray[QueueArray.length - 1].DecreaseAmount();
+            setTimeout(() => {
+                AtmExemplar.changeState();
+                AtmExemplar.changeServedAmount();
+                realizeAtm(AtmExemplar, QueueArray, i);
+            }, createInterval(AtmExemplar.startTime, AtmExemplar.endTime));
+        }
+        else{
             realizeAtm(AtmExemplar, QueueArray, i);
-        }, 1000);
-    }, createInterval(AtmExemplar.startTime, AtmExemplar.endTime));
+        } 
+    }, 1000);
 };
 // #endregion
 

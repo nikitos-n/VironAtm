@@ -12,17 +12,12 @@ export default class Atm extends EventEmmiter {
     }
 
     changeState() {
+        this.state=this.state==true?false:true;
         this.emit("changeState");
-        if(this.state==true){
-            this.state=false;
-        }
-        else if(this.state==false){
-            this.state=true;
-        }
     }
 
     changeServedAmount() {
-        this.emit("changeServedAmount");
         this.servedPeople += 1;
+        this.emit("changeServedAmount");
     }
 }

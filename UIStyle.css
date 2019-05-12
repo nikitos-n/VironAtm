@@ -1,13 +1,15 @@
-body{
+body {
     background-color: paleturquoise;
 }
 
-.atmUIFlex-container{
+/*Банкомат*/
+
+.atmUIFlex-container {
     display: flex;
-    border: 2px dashed steelblue; 
+    border: 2px dashed steelblue;
     border-radius: 50px;
+    flex-direction: row;
     width: 85%;
-    align-items: center;
     color: black;
     margin-right: auto;
     margin-left: auto;
@@ -16,25 +18,118 @@ body{
     flex-wrap: wrap;
 }
 
-.atmUIFlex-elements{
-    padding-left: 10px;
-    padding-top: 20px;
+.atmUIFlex-elements {
     margin: 20px;
     border: 2px solid black;
     border-radius: 20px;
     background-color: aquamarine;
     height: 100px;
-    vertical-align: middle;
-    float: left;
+    min-width: 50px;
+    text-align: center;
     flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.queueUIFlex-container{
+/*Плюсик на добавление*/
+.atmUIFlexPlus {
+    width: 50px;
+    background: url("./images/plus-square-solid.svg");
+    height: 40%;
+    opacity: 0.3;
+    background-repeat: no-repeat;
+}
+
+.atmUIFlexPlus:hover {
+    opacity: 1;
+}
+
+.atmUIFlexPlus:hover::after {
+    position: relative;
+    content: attr(data-title);
+    z-index: 1;
+    left: -150%;
+    top: -10%;
+}
+
+.queueUIFlexPlus {
+    width: 50px;
+    background: url("./images/plus-square-solid.svg");
+    height: 40%;
+    opacity: 0.3;
+    background-repeat: no-repeat;
+}
+
+.queueUIFlexPlus:hover {
+    opacity: 1;
+}
+
+.queueUIFlexPlus:hover::after {
+    position: relative;
+    content: attr(data-title);
+    z-index: 1;
+    left: -150%;
+    top: -40%;
+}
+
+/*Крестик на закрытие*/
+
+.close1 {
+    align-self: flex-start;
+    margin-top: 5px;
+    position: relative;
+    right: -42%;
+    width: 22px;
+    background: url("./images/times-circle-solid.svg");
+    height: 22px;
+    opacity: 0.3;
+}
+
+.close1:hover {
+    opacity: 1;
+    content: attr(data-title);
+}
+
+.close1:hover::after {
+    position: relative;
+    content: attr(data-title);
+    z-index: 1;
+    left: -210%;
+    top: 80%; 
+}
+
+.close2 {
+    align-self: flex-start;
+    position: relative;
+    margin-top: 5px;
+    right: -46%;
+    width: 22px;
+    background: url("./images/times-circle-solid.svg");
+    height: 22px;
+    opacity: 0.3;
+}
+
+.close2:hover {
+    opacity: 1;
+}
+
+.close2:hover::after {
+    position: relative;
+    content: attr(data-title);
+    z-index: 1;
+    left: -250%;
+    top: -30%; 
+}
+
+/*Очередь*/
+
+.queueUIFlex-container {
     display: flex;
-    border: 4px dashed steelblue; 
+    border: 4px dashed steelblue;
     border-radius: 50px;
     width: 85%;
-    align-items: center;
     color: black;
     margin-right: auto;
     margin-left: auto;
@@ -43,15 +138,17 @@ body{
     flex-wrap: wrap;
 }
 
-.queueUIFlex-elements{
-    padding-left: 10px;
-    padding-top: 20px;
+.queueUIFlex-elements {
     margin: 20px;
-    align-items: center;
     border: 2px solid black;
     border-radius: 20px;
     background-color: greenyellow;
     height: 40px;
+    text-align: center;
     float: left;
     flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }

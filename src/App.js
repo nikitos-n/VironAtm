@@ -12,64 +12,85 @@ export default class App {
         this.QueueArray = [];
         this.AtmArrayUI = [];
         this.QueueArrayUI = [];
+        this.AtmReserved = [];
+        this.AtmReservedUI = [];
     }
 
-    addAtm(startTime, endTime) {
+    addAtm(startTime, endTime, i) {
         let atm_1 = new Atm(startTime, endTime);
         let atmUI_1 = new AtmUI();
+
+        let f1 = atm_1.on("changeState", () => {
+            atmUI_1.changeStateUI();
+            console.log(`${this.AtmArray.indexOf(atm_1)}-ый банкомат находится в состоянии ${atm_1.state}`)
+        })
+        atm_1.on('unsubscribeStateAtm', () => f1);
+
+        let f2 = atm_1.on("changeServedAmount", () => {
+            atmUI_1.changeServedPeopleUI(atm_1.servedPeople);
+            console.log(`Количество людей, обслуженных ${this.AtmArray.indexOf(atm_1)}-ым банкоматом ${atm_1.servedPeople}`)
+        });
+        atm_1.on("unsubscribeServedAtm", () => f2);
+
+        let closeAtm = atmUI_1.ChildAtmDivClose;
+        closeAtm.onclick = () => {
+            atm_1.unsubscribeState();
+            this.AtmArray.splice(this.AtmArray.indexOf(this.AtmArray), 1);
+            this.AtmArrayUI.splice(this.AtmArrayUI.indexOf(this.AtmArrayUI), 1);
+            closeAtm.parentNode.remove();
+        }
         this.AtmArray.push(atm_1);
         this.AtmArrayUI.push(atmUI_1);
+        realizeAtm(this.AtmArray, this.QueueArray, this.AtmArray.indexOf(atm_1));
     }
 
-    addQueue() {
+
+    addQueue(n, m) {
         let queue_1 = new Queue();
         let queueUI_1 = new QueueUI();
+        queue_1.on("ChangeAmount", () => {
+            queueUI_1.ChildQueueDivContent.innerText = queue_1.queueAmount;
+            console.log(`Количество людей в ${this.QueueArray.indexOf(queue_1)}-ой очереди очереди ${queue_1.queueAmount}`);
+        });
+        queue_1.on("cerateOneMoreAtm", () => {
+            this.addAtm(1, 1.5);
+        });
+        queue_1 = createGeneratorQueue(queue_1, queueUI_1, n, m, this.QueueArray.indexOf(queue_1));
         this.QueueArray.push(queue_1);
         this.QueueArrayUI.push(queueUI_1);
     }
 
     startProcess(n, m) {
-
-        for (let i in this.QueueArray) {
-            this.QueueArray[i] = createGeneratorQueue(this.QueueArray[i], this.QueueArrayUI[i], n, m, i);
+        let i = 0;
+        document.getElementsByClassName("queueUIFlexPlus")[0].onclick = () => {
+            this.addQueue(n, m);
         }
 
-        for (let i in this.AtmArray) {
-            this.AtmArray[i].on("changeState", () => {
-                this.AtmArrayUI[i].ChildAtmDiv.style.backgroundColor = this.AtmArrayUI[i].ChildAtmDiv.style.backgroundColor == "red" ? "aquamarine" : "red";
-                console.log(`${i}-ый банкомат находится в состоянии ${this.AtmArray[i].state}`)
-            })
-            this.AtmArray[i].on("changeServedAmount", () => {
-                this.AtmArrayUI[i].changeServedPeopleUI(this.AtmArray[i].servedPeople);
-                console.log(`Количество людей, обслуженных ${i}-ым банкоматом ${this.AtmArray[i].servedPeople}`)
-            })
-        }
-        for (let i in this.AtmArray) {
-            realizeAtm(this.AtmArray[i], this.QueueArray, i);
+        //#region Кнопка добавить банкомат
+        document.getElementsByClassName("atmUIFlexPlus")[0].onclick = () => {
+            this.addAtm(2, 5, i);
         }
     }
 }
-// #endregion
 
 // #region handler на изменение состояния очереди
-function realizeAtm(AtmExemplar, QueueArray, i) {
+function realizeAtm(AtmArray, QueueArray, i) {
     setTimeout(() => {
-        if (QueueArray.some((element) => element.queueAmount > 0)) {//Если очередь не закончилась
-            AtmExemplar.changeState();
+        if (QueueArray.some((element) => element.queueAmount > 0) && AtmArray[i] !== undefined) { //Если очередь не закончилась
+            AtmArray[i].changeState();
             QueueArray.sort((a, b) => {
                 if (a.queueAmount > b.queueAmount) return 1;
                 if (a.queueAmount < b.queueAmount) return -1;
             });
             QueueArray[QueueArray.length - 1].DecreaseAmount();
             setTimeout(() => {
-                AtmExemplar.changeState();
-                AtmExemplar.changeServedAmount();
-                realizeAtm(AtmExemplar, QueueArray, i);
-            }, createInterval(AtmExemplar.startTime, AtmExemplar.endTime));
+                AtmArray[i].changeState();
+                AtmArray[i].changeServedAmount();
+                realizeAtm(AtmArray, QueueArray, i);
+            }, createInterval(AtmArray[i].startTime, AtmArray[i].endTime));
+        } else {
+            realizeAtm(AtmArray, QueueArray, i);
         }
-        else{
-            realizeAtm(AtmExemplar, QueueArray, i);
-        } 
     }, 1000);
 };
 // #endregion
@@ -84,12 +105,8 @@ function createInterval(min, max) {
 //#endregion
 
 //#region Генерация очереди
-function createGeneratorQueue(queue_1, queue_1UI, n, m, i) {//Генерируем очередь
-    queue_1.on("ChangeAmount", () => {
-        queue_1UI.ChildQueueDiv.innerText = queue_1.queueAmount;
-        console.log(`Количество людей в ${i}-ой очереди очереди ${queue_1.queueAmount}`);
-    });
-    function increaseQueue(n, m) {//Наращиваем очередь
+function createGeneratorQueue(queue_1, queueUI_1, n, m, i) { //Генерируем очередь
+    function increaseQueue(n, m) { //Наращиваем очередь
         setTimeout(() => {
             queue_1.IncreaseAmount();
             increaseQueue(n, m);
@@ -101,3 +118,4 @@ function createGeneratorQueue(queue_1, queue_1UI, n, m, i) {//Генерируе
     return queue_1;
 }
 //#endregion
+

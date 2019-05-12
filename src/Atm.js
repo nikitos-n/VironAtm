@@ -20,4 +20,11 @@ export default class Atm extends EventEmmiter {
         this.servedPeople += 1;
         this.emit("changeServedAmount");
     }
+
+    unsubscribeState(){
+        console.log("Выводим банкомат из работы");
+        this.emit("unsubscribeServedAtm");
+        this.emit("unsubscribeStateAtm");
+    }
+
 }

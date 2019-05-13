@@ -4,6 +4,7 @@ import Atm from './Atm';
 import Queue from './Queue';
 import AtmUI from './AtmUI';
 import QueueUI from './QueueUI';
+import Person from './Person';
 
 //#region Запускаем банкоматы и очередь
 export default class App {
@@ -16,7 +17,7 @@ export default class App {
         this.AtmReservedUI = [];
     }
 
-    addAtm(startTime, endTime, i) {
+    addAtm(startTime, endTime) {
         let atm_1 = new Atm(startTime, endTime);
         let atmUI_1 = new AtmUI();
 
@@ -48,13 +49,15 @@ export default class App {
     addQueue(n, m) {
         let queue_1 = new Queue();
         let queueUI_1 = new QueueUI();
-        queue_1.on("ChangeAmount", () => {
-            queueUI_1.ChildQueueDivContent.innerText = queue_1.queueAmount;
-            console.log(`Количество людей в ${this.QueueArray.indexOf(queue_1)}-ой очереди очереди ${queue_1.queueAmount}`);
+        let f1 = queue_1.on("ChangeAmount", () => {
+            queueUI_1.ChildQueueDivContent.innerText = queue_1.PersonAmount.length;
+            console.log(`Количество людей в ${this.QueueArray.indexOf(queue_1)}-ой очереди очереди ${queue_1.PersonAmount.length}`);
         });
         queue_1.on("cerateOneMoreAtm", () => {
             this.addAtm(1, 1.5);
         });
+        queue_1.on("unsubscribeAmount", () => f1);
+
         queue_1 = createGeneratorQueue(queue_1, queueUI_1, n, m, this.QueueArray.indexOf(queue_1));
         this.QueueArray.push(queue_1);
         this.QueueArrayUI.push(queueUI_1);
@@ -76,18 +79,20 @@ export default class App {
 // #region handler на изменение состояния очереди
 function realizeAtm(AtmArray, QueueArray, i) {
     setTimeout(() => {
-        if (QueueArray.some((element) => element.queueAmount > 0) && AtmArray[i] !== undefined) { //Если очередь не закончилась
+        if (QueueArray.some((element) => element.PersonAmount.length > 0) && AtmArray[i]) { //Если очередь не закончилась
+            debugger;
             AtmArray[i].changeState();
             QueueArray.sort((a, b) => {
                 if (a.queueAmount > b.queueAmount) return 1;
                 if (a.queueAmount < b.queueAmount) return -1;
             });
-            QueueArray[QueueArray.length - 1].DecreaseAmount();
+            let time = QueueArray[QueueArray.length - 1].DecreaseAmount();
             setTimeout(() => {
                 AtmArray[i].changeState();
                 AtmArray[i].changeServedAmount();
                 realizeAtm(AtmArray, QueueArray, i);
-            }, createInterval(AtmArray[i].startTime, AtmArray[i].endTime));
+                debugger;
+            }, time.time);
         } else {
             realizeAtm(AtmArray, QueueArray, i);
         }

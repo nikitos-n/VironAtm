@@ -78,9 +78,12 @@ export default class App {
 
 // #region handler на изменение состояния очереди
 function realizeAtm(AtmArray, QueueArray, i) {
+    let j=0;
     setTimeout(() => {
+        setInterval(() => {
+            j+=1;
+        }, 1000);
         if (QueueArray.some((element) => element.PersonAmount.length > 0) && AtmArray[i]) { //Если очередь не закончилась
-            debugger;
             AtmArray[i].changeState();
             QueueArray.sort((a, b) => {
                 if (a.queueAmount > b.queueAmount) return 1;
@@ -91,7 +94,6 @@ function realizeAtm(AtmArray, QueueArray, i) {
                 AtmArray[i].changeState();
                 AtmArray[i].changeServedAmount();
                 realizeAtm(AtmArray, QueueArray, i);
-                debugger;
             }, time.time);
         } else {
             realizeAtm(AtmArray, QueueArray, i);

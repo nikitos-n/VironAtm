@@ -3,16 +3,14 @@
 import EventEmmiter from './EventEmmiter'
 
 export default class Atm extends EventEmmiter {
-    constructor(startTime, endTime) {
+    constructor() {
         super();
-        this.startTime = startTime;
-        this.endTime = endTime;
         this.state = true;
         this.servedPeople = 0;
     }
 
     changeState() {
-        this.state=this.state==true?false:true;
+        this.state = this.state == true ? false : true;
         this.emit("changeState");
     }
 
@@ -21,7 +19,7 @@ export default class Atm extends EventEmmiter {
         this.emit("changeServedAmount");
     }
 
-    unsubscribeState(){
+    unsubscribeState() {
         console.log("Выводим банкомат из работы");
         this.emit("unsubscribeServedAtm");
         this.emit("unsubscribeStateAtm");

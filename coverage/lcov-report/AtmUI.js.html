@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for EventEmmiter.js</title>
+    <title>Code coverage report for AtmUI.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="prettify.css" />
     <link rel="stylesheet" href="base.css" />
@@ -16,23 +16,23 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="index.html">All files</a> EventEmmiter.js
+      <a href="index.html">All files</a> AtmUI.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>14/14</span>
+        <span class='fraction'>13/13</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>3/3</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -76,61 +76,61 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict"
-function EventEmmiter() {
-    this.eventTable = {};
-}
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
 &nbsp;
-EventEmmiter.prototype.on = function (eventName, handler) {//Реализация подписки на событие
-    if (!this.eventTable.hasOwnProperty(eventName)) {//Если ранее на событие не подписывались
-        this.eventTable[eventName] = [];
+export default class AtmUI {
+    constructor() {
+        this.ChildAtmDiv = document.createElement('div');
+        this.ChildAtmDivContent = document.createElement('div');
+        this.ChildAtmDivClose = document.createElement('div');
+        this.ChildAtmDiv.className = "atmUIFlex-elements";
+        this.ChildAtmDivClose.className = "close1";
+        this.ChildAtmDivClose.setAttribute("data-title", "Удалить банкомат");
+        this.ChildAtmDiv.appendChild(this.ChildAtmDivContent);
+        this.ChildAtmDiv.appendChild(this.ChildAtmDivClose);
+        document.getElementById("forUIAtm").appendChild(this.ChildAtmDiv);
+        document.getElementById("forUIAtm").insertBefore(this.ChildAtmDiv, document.getElementById("insert1"));
+        this.ChildAtmDivContent.textContent = 0;
     }
-    this.eventTable[eventName].push(handler);
-    function unsubscribe() {//Реализация отписки от события
-        this.eventTable[eventName] = this.eventTable[eventName].filter(function (hand) {
-            return hand != handler;//Перезаписали массив
-        });
+&nbsp;
+    // render() {
+&nbsp;
+    // }
+&nbsp;
+    changeStateUI() {
+        this.ChildAtmDiv.style.backgroundColor = this.ChildAtmDiv.style.backgroundColor == "red" ? "aquamarine" : "red";
     }
-    return unsubscribe.bind(this);
-}
 &nbsp;
-EventEmmiter.prototype.emit = function (eventName, ...params) {//Реализуем генерацию события
-    if (this.eventTable !== undefined &amp;&amp; this.eventTable.hasOwnProperty(eventName)) {//Если на это событие ранее подписывались
-        this.eventTable[eventName].forEach(function (elem) { elem(...params) })
+    changeServedPeopleUI(servedpeople) {
+        this.ChildAtmDivContent.innerText = servedpeople;
     }
-}
-&nbsp;
-EventEmmiter.prototype.clearTable = function () {//Очищаем eventTable 
-    delete this.eventTable;
-}
-&nbsp;
-export default EventEmmiter</pre></td></tr>
+}</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->

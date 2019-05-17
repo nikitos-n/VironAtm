@@ -4,7 +4,6 @@ import Atm from './Atm';
 import Queue from './Queue';
 import AtmUI from './AtmUI';
 import QueueUI from './QueueUI';
-import Person from './Person';
 
 //#region Запускаем банкоматы и очередь
 export default class App {
@@ -78,10 +77,10 @@ export default class App {
 
 // #region handler на изменение состояния очереди
 function realizeAtm(AtmArray, QueueArray, i) {
-    let j=0;
+    let j = 0;
     setTimeout(() => {
         setInterval(() => {
-            j+=1;
+            j += 1;
         }, 1000);
         if (QueueArray.some((element) => element.PersonAmount.length > 0) && AtmArray[i]) { //Если очередь не закончилась
             AtmArray[i].changeState();
@@ -115,9 +114,9 @@ function createInterval(min, max) {
 function createGeneratorQueue(queue_1, queueUI_1, n, m, i) { //Генерируем очередь
     function increaseQueue(n, m) { //Наращиваем очередь
         setTimeout(() => {
-            queue_1.IncreaseAmount();
-            increaseQueue(n, m);
-        },
+                queue_1.IncreaseAmount();
+                increaseQueue(n, m);
+            },
             createInterval(n, m))
     }
     increaseQueue(n, m);
@@ -125,4 +124,4 @@ function createGeneratorQueue(queue_1, queueUI_1, n, m, i) { //Генериру�
     return queue_1;
 }
 //#endregion
-
+export default createInterval

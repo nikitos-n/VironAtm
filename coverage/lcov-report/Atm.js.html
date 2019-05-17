@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for EventEmmiter.js</title>
+    <title>Code coverage report for Atm.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="prettify.css" />
     <link rel="stylesheet" href="base.css" />
@@ -16,28 +16,28 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="index.html">All files</a> EventEmmiter.js
+      <a href="index.html">All files</a> Atm.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>14/14</span>
+        <span class='fraction'>10/10</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>13/13</span>
+        <span class='fraction'>10/10</span>
       </div>
     </div>
     <p class="quiet">
@@ -73,64 +73,61 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict"
-function EventEmmiter() {
-    this.eventTable = {};
-}
 &nbsp;
-EventEmmiter.prototype.on = function (eventName, handler) {//Реализация подписки на событие
-    if (!this.eventTable.hasOwnProperty(eventName)) {//Если ранее на событие не подписывались
-        this.eventTable[eventName] = [];
+import EventEmmiter from './EventEmmiter'
+&nbsp;
+export default class Atm extends EventEmmiter {
+    constructor() {
+        super();
+        this.state = true;
+        this.servedPeople = 0;
     }
-    this.eventTable[eventName].push(handler);
-    function unsubscribe() {//Реализация отписки от события
-        this.eventTable[eventName] = this.eventTable[eventName].filter(function (hand) {
-            return hand != handler;//Перезаписали массив
-        });
+&nbsp;
+    changeState() {
+        this.state = this.state == true ? false : true;
+        this.emit("changeState");
     }
-    return unsubscribe.bind(this);
-}
 &nbsp;
-EventEmmiter.prototype.emit = function (eventName, ...params) {//Реализуем генерацию события
-    if (this.eventTable !== undefined &amp;&amp; this.eventTable.hasOwnProperty(eventName)) {//Если на это событие ранее подписывались
-        this.eventTable[eventName].forEach(function (elem) { elem(...params) })
+    changeServedAmount() {
+        this.servedPeople += 1;
+        this.emit("changeServedAmount");
     }
-}
 &nbsp;
-EventEmmiter.prototype.clearTable = function () {//Очищаем eventTable 
-    delete this.eventTable;
-}
+    unsubscribeState() {
+        console.log("Выводим банкомат из работы");
+        this.emit("unsubscribeServedAtm");
+        this.emit("unsubscribeStateAtm");
+    }
 &nbsp;
-export default EventEmmiter</pre></td></tr>
+}</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->

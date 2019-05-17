@@ -7,13 +7,17 @@ export default class AtmUI {
         this.ChildAtmDivClose = document.createElement('div');
         this.ChildAtmDiv.className = "atmUIFlex-elements";
         this.ChildAtmDivClose.className = "close1";
-        this.ChildAtmDivClose.setAttribute("data-title","Удалить банкомат");
+        this.ChildAtmDivClose.setAttribute("data-title", "Удалить банкомат");
         this.ChildAtmDiv.appendChild(this.ChildAtmDivContent);
         this.ChildAtmDiv.appendChild(this.ChildAtmDivClose);
         document.getElementById("forUIAtm").appendChild(this.ChildAtmDiv);
-        document.getElementById("forUIAtm").insertBefore(this.ChildAtmDiv,document.getElementById("insert1"));
+        document.getElementById("forUIAtm").insertBefore(this.ChildAtmDiv, document.getElementById("insert1"));
         this.ChildAtmDivContent.textContent = 0;
     }
+
+    // render() {
+
+    // }
 
     changeStateUI() {
         this.ChildAtmDiv.style.backgroundColor = this.ChildAtmDiv.style.backgroundColor == "red" ? "aquamarine" : "red";

@@ -20,31 +20,31 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">64.29% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>14/14</span>
+        <span class='fraction'>9/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>4/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">42.86% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>3/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">69.23% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>13/13</span>
+        <span class='fraction'>9/13</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -79,27 +79,27 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict"
@@ -108,26 +108,26 @@ function EventEmmiter() {
 }
 &nbsp;
 EventEmmiter.prototype.on = function (eventName, handler) {//Реализация подписки на событие
-    if (!this.eventTable.hasOwnProperty(eventName)) {//Если ранее на событие не подписывались
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!this.eventTable.hasOwnProperty(eventName)) {//Если ранее на событие не подписывались
         this.eventTable[eventName] = [];
     }
     this.eventTable[eventName].push(handler);
-    function unsubscribe() {//Реализация отписки от события
-        this.eventTable[eventName] = this.eventTable[eventName].filter(function (hand) {
-            return hand != handler;//Перезаписали массив
+    function <span class="fstat-no" title="function not covered" >unsubscribe(</span>) {//Реализация отписки от события
+<span class="cstat-no" title="statement not covered" >        this.eventTable[eventName] = this.eventTable[eventName].filter(<span class="fstat-no" title="function not covered" >fu</span>nction (hand) {</span>
+<span class="cstat-no" title="statement not covered" >            return hand != handler;/</span>/Перезаписали массив
         });
     }
     return unsubscribe.bind(this);
 }
 &nbsp;
 EventEmmiter.prototype.emit = function (eventName, ...params) {//Реализуем генерацию события
-    if (this.eventTable !== undefined &amp;&amp; this.eventTable.hasOwnProperty(eventName)) {//Если на это событие ранее подписывались
-        this.eventTable[eventName].forEach(function (elem) { elem(...params) })
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.eventTable !== undefined &amp;&amp; this.eventTable.hasOwnProperty(eventName)) {//Если на это событие ранее подписывались
+<span class="cstat-no" title="statement not covered" >        this.eventTable[eventName].forEach(<span class="fstat-no" title="function not covered" >fu</span>nction (elem) { <span class="cstat-no" title="statement not covered" >elem(...params) </span>})</span>
     }
 }
 &nbsp;
-EventEmmiter.prototype.clearTable = function () {//Очищаем eventTable 
-    delete this.eventTable;
+EventEmmiter.prototype.clearTable = <span class="fstat-no" title="function not covered" >fu</span>nction () {//Очищаем eventTable 
+<span class="cstat-no" title="statement not covered" >    delete this.eventTable;</span>
 }
 &nbsp;
 export default EventEmmiter</pre></td></tr>
@@ -136,7 +136,7 @@ export default EventEmmiter</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri May 17 2019 19:05:44 GMT+0300 (GMT+03:00)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri May 17 2019 20:10:39 GMT+0300 (GMT+03:00)
 </div>
 </div>
 <script src="prettify.js"></script>

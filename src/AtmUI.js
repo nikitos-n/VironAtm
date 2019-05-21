@@ -15,10 +15,6 @@ export default class AtmUI {
         this.ChildAtmDivContent.textContent = 0;
     }
 
-    // render() {
-
-    // }
-
     changeStateUI() {
         this.ChildAtmDiv.style.backgroundColor = this.ChildAtmDiv.style.backgroundColor == "red" ? "aquamarine" : "red";
     }

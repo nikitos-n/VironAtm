@@ -26,6 +26,7 @@ export default class Queue extends EventEmmiter {
     unsubscribeAmount(){
         console.log("Выводим очередь из работы");
         this.emit("unsubscribeAmount");
+        this.clearTable();
     }
 
 }

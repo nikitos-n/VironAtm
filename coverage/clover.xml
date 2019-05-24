@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1558633346022" clover="3.2.0">
-  <project timestamp="1558633346022" name="All files">
-    <metrics statements="70" coveredstatements="67" conditionals="14" coveredconditionals="12" methods="25" coveredmethods="24" elements="109" coveredelements="103" complexity="0" loc="70" ncloc="70" packages="1" files="7" classes="7"/>
+<coverage generated="1558687290466" clover="3.2.0">
+  <project timestamp="1558687290466" name="All files">
+    <metrics statements="70" coveredstatements="64" conditionals="14" coveredconditionals="12" methods="25" coveredmethods="22" elements="109" coveredelements="98" complexity="0" loc="70" ncloc="70" packages="1" files="7" classes="7"/>
     <file name="Atm.js" path="C:\Users\Nikit\Стажировка\ViroIT\src\Atm.js">
       <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
       <line num="7" count="1" type="stmt"/>
@@ -49,13 +49,13 @@
       <line num="26" count="3" type="stmt"/>
     </file>
     <file name="GeneratorQueue.js" path="C:\Users\Nikit\Стажировка\ViroIT\src\GeneratorQueue.js">
-      <metrics statements="9" coveredstatements="6" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="3"/>
-      <line num="3" count="1" type="stmt"/>
-      <line num="4" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="5" count="0" type="stmt"/>
-      <line num="6" count="0" type="stmt"/>
-      <line num="11" count="1" type="stmt"/>
-      <line num="13" count="1" type="stmt"/>
+      <metrics statements="9" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="1"/>
+      <line num="2" count="0" type="stmt"/>
+      <line num="3" count="0" type="stmt"/>
+      <line num="7" count="0" type="stmt"/>
+      <line num="8" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="9" count="0" type="stmt"/>
+      <line num="10" count="0" type="stmt"/>
       <line num="17" count="1" type="stmt"/>
       <line num="18" count="1" type="stmt"/>
       <line num="19" count="1" type="stmt"/>

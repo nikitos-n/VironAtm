@@ -138,7 +138,6 @@ export default class App {
             } else {
                 this.realizeAtm(AtmArray, QueueArray, i);
             }
-
         }
     }
 }
